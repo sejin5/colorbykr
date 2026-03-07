@@ -2,10 +2,8 @@ import styled from "styled-components";
 
 const StyledDiv = styled.div`
   display: flex;
-  gap: 60px;
-  padding: 10px 0;
   white-space: nowrap;
-  line-height: 16rem;
+  line-height: 18rem;
 
   &:nth-child(odd) {
     animation: scrollRight 120s linear infinite;
@@ -18,7 +16,7 @@ const StyledDiv = styled.div`
 const StyledSpan = styled.span`
   font-size: 13rem;
   font-weight: bold;
-  padding-left: 2rem;
+  padding: 0 3rem;
 `;
 
 interface Color {
