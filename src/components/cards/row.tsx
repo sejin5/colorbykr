@@ -1,4 +1,37 @@
 import styled from "styled-components";
+import { useContext } from "react";
+import { BgColorContext } from "../../context/bgColorContext";
+
+interface Color {
+  id: number;
+  name: string;
+  hex: string;
+}
+
+interface Colors {
+  id: number;
+  colors: Color[];
+}
+
+const Row = ({ id, colors }: Colors) => {
+  const { setBgColor, resetBgColor } = useContext(BgColorContext);
+
+  return (
+    <StyledDiv id={String(id)}>
+      {[...colors, ...colors, ...colors].map((color, i) => (
+        <StyledSpan
+          key={`${color.id}-${i}`}
+          onMouseEnter={() => setBgColor(color.hex)}
+          onMouseLeave={resetBgColor}
+        >
+          {color.name}
+        </StyledSpan>
+      ))}
+    </StyledDiv>
+  );
+};
+
+export default Row;
 
 const StyledDiv = styled.div`
   display: flex;
@@ -18,26 +51,3 @@ const StyledSpan = styled.span`
   font-weight: bold;
   padding: 0 3rem;
 `;
-
-interface Color {
-  id: number;
-  name: string;
-  hex: string;
-}
-
-interface Colors {
-  id: number;
-  colors: Color[];
-}
-
-const Row = ({ id, colors }: Colors) => {
-  return (
-    <StyledDiv id={String(id)}>
-      {[...colors, ...colors, ...colors].map((color, i) => (
-        <StyledSpan key={`${color.id}-${i}`}>{color.name}</StyledSpan>
-      ))}
-    </StyledDiv>
-  );
-};
-
-export default Row;
