@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useContext } from "react";
-import { BgColorContext } from "../../context/bgColorContext";
+import { useBgColor } from "../../context/bgColorContext";
+import { useModal } from "../../context/modalContext";
 
 interface Color {
   id: number;
@@ -14,7 +14,13 @@ interface Colors {
 }
 
 const Row = ({ id, colors }: Colors) => {
-  const { setBgColor, resetBgColor } = useContext(BgColorContext);
+  const { setBgColor, resetBgColor } = useBgColor();
+  const { isOpen, openModal } = useModal();
+
+  const handleColorClick = (color: Color) => {
+    openModal(color);
+    setBgColor(color.hex);
+  };
 
   return (
     <StyledDiv id={String(id)}>
@@ -22,7 +28,10 @@ const Row = ({ id, colors }: Colors) => {
         <StyledSpan
           key={`${color.id}-${i}`}
           onMouseEnter={() => setBgColor(color.hex)}
-          onMouseLeave={resetBgColor}
+          onMouseLeave={() => {
+            if (!isOpen) resetBgColor();
+          }}
+          onClick={() => handleColorClick(color)}
         >
           {color.name}
         </StyledSpan>

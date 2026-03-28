@@ -1,12 +1,17 @@
 import Cards from "./components/cards";
 import { BgColorProvider } from "./context/bgColorContext";
+import { ModalProvider } from "./context/modalContext";
+import Modal from "./components/modal";
 
 function App() {
   return (
     <>
       <BgColorProvider>
-        <h1>작업중</h1>
-        <Cards />
+        <ModalProvider>
+          <h1>작업중</h1>
+          <Cards />
+          <Modal />
+        </ModalProvider>
       </BgColorProvider>
     </>
   );

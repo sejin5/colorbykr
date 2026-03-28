@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 import type { ReactNode } from "react";
 import { createGlobalStyle } from "styled-components";
 
@@ -37,3 +37,9 @@ export const BgColorProvider = ({ children }: { children: ReactNode }) => {
     </BgColorContext.Provider>
   );
 };
+
+export function useBgColor() {
+  const ctx = useContext(BgColorContext);
+  if (!ctx) throw new Error("useBgColor must be used within BgColorProvider");
+  return ctx;
+}
